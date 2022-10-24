@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
+import { format } from "url";
 
 function createWindow() {
   // Create the browser window.
@@ -12,7 +13,19 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, "../index.html"));
+
+
+
+  const startUrl = process.env.ELECTRON_START_URL || format({
+    pathname: path.join(__dirname, '../index.html'),
+    protocol: 'file:',
+    slashes: true
+  });
+
+  console.log(process.env.ELECTRON_START_URL)
+  console.log(startUrl)
+
+  mainWindow.loadURL(startUrl);
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
