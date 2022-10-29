@@ -4,16 +4,8 @@ import React from "react";
 
 const { Paragraph, Title } = Typography;
 
-const App: React.FC = () => (
+const AddTask: React.FC = () => (
   <>
-    <Row className="mt-8">
-      <Col span={22} className="text-center">
-        <Title level={3}>JTracker app</Title>
-      </Col>
-      <Col span={1}>
-        <Button type="primary" icon={<SettingOutlined />} size={"middle"} />
-      </Col>
-    </Row>
     <Row className="mt-2">
       <Col span={16}>
         <Input placeholder="Description" />
@@ -32,4 +24,4 @@ const App: React.FC = () => (
   </>
 );
 
-export default App;
+export default AddTask;
