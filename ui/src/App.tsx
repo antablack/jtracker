@@ -8,9 +8,9 @@ import AppHeader from "./components/app-header";
 function App() {
   return (
     <>
-      <Row>
-        <Col span={22} offset={1}>
-          <AppHeader/>
+      <Row className="justify-center">
+        <Col span={8} offset={1}>
+          <AppHeader />
           <TaskListSection />
         </Col>
       </Row>

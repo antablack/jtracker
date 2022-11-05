@@ -12,7 +12,7 @@ const AppHeader: React.FC = () => (
         <Title level={3}>JTracker app</Title>
       </Col>
       <Col span={1}>
-        <Button type="primary" icon={<SettingOutlined />} size={"middle"} />
+        <Button className="hide" type="primary" icon={<SettingOutlined />} size={"middle"} />
       </Col>
     </Row>
     <AddTask/>
