@@ -3,26 +3,34 @@ import {
   PlayCircleOutlined,
   SettingOutlined,
   FieldTimeOutlined,
+  PauseCircleOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import Task from "../../app/domain/Task";
 import { convertMsToTime } from "../../shared/utils";
-import { UpdateTask } from "../../state/slices/task";
+import { GeneralStopTask, ResumeTask, StartTask, StopTask, UpdateTask } from "../../state/slices/task";
+import Duration from "../duration";
 
 const { Paragraph } = Typography;
 
-const data = [
-  "Revision de bugs",
-  "Revision de bugs",
-  "Revision de bugs",
-  "Revision de bugs",
-];
-
 function TaskListSection() {
   const state = useSelector((state: RootState) => state.task.tasks);
+  const taskState = useSelector((state: RootState) => state.task.task);
   const dispatch = useDispatch();
   //<Divider orientation="left">Today</Divider>
+
+  const changeState = (task: Task) => {
+    if (taskState) {
+      task.endDateTime = Date.now()
+      task.accumulatedTime += task.endDateTime - task.startDateTime
+      dispatch(UpdateTask(task));
+      dispatch(GeneralStopTask());
+      return;
+    }
+    dispatch(ResumeTask(task));
+  };
+
   return (
     <>
       <List
@@ -43,15 +51,14 @@ function TaskListSection() {
                 triggerType: ["text"],
               }}
             >
-              {item.description}
+              {item.description || "No label"}
             </Paragraph>
             <Space>
-              <Paragraph className="text-center mb-0">
-                {convertMsToTime((item.endDateTime || 0) - item.startDateTime)}
-              </Paragraph>
+              <Duration accumulated={item.accumulatedTime} isPaused={taskState?.id !== item.id} startDateTime={taskState?.startDateTime || 0} resetOnPause={false}/>
               <Button
                 type="primary"
-                icon={<PlayCircleOutlined />}
+                icon={taskState?.id === item.id ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
+                onClick={() => changeState(JSON.parse(JSON.stringify(item)))}
                 size={"middle"}
               />
               <Button

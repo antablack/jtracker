@@ -11,8 +11,7 @@ import { StartTask, StopTask } from "../../state/slices/task";
 import Task from "../../app/domain/Task";
 import { nanoid } from "nanoid";
 import { convertMsToTime } from "../../shared/utils";
-
-const { Paragraph, Title } = Typography;
+import Duration from "../duration";
 
 const AddTask: React.FC = () => {
   const state = useSelector((state: RootState) => state.task.task);
@@ -20,33 +19,24 @@ const AddTask: React.FC = () => {
 
   const [description, setDescription] = useState("");
   const [duration, setDuration] = useState("");
-
-  let durationInterval = useRef<number>();
-
-  useEffect(() => {
-    if (state && !state?.endDateTime) {
-      durationInterval.current = window.setInterval(() => {
-        const duration = convertMsToTime(Date.now() - state.startDateTime);
-        setDuration(duration);
-      }, 1000);
-    } else {
-      clearInterval(durationInterval.current);
-    }
-  }, [state]);
+  const [taskId, setTaskId] = useState("");
 
   const changeState = () => {
     if (state) {
       setDuration("");
       setDescription("");
+      setTaskId("")
       dispatch(StopTask());
       return;
     }
     const newTask: Task = {
       id: nanoid(),
       description,
+      accumulatedTime: 0,
       startDateTime: Date.now(),
     };
 
+    setTaskId(newTask.id)
     dispatch(StartTask(newTask));
   };
 
@@ -65,14 +55,12 @@ const AddTask: React.FC = () => {
           className="flex-column justify-center ml-3"
           style={{ display: "flex" }}
         >
-          <Paragraph className="mb-0 mr-2" style={{textAlign: "right"}}>
-            {duration || "00:00:00"}
-          </Paragraph>
+        <Duration accumulated={0} isPaused={state?.id !== taskId} startDateTime={state?.startDateTime || 0} resetOnPause={true}/>
         </Col>
         <Col span={1}>
           <Button
             type="primary"
-            icon={state ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
+            icon={state?.id === taskId ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
             size={"middle"}
             onClick={changeState}
           />

@@ -25,7 +25,13 @@ export const taskSlice = createSlice({
     StopTask: (state) => {
       if (state.task) {
         state.task.endDateTime = Date.now();
+        state.task.accumulatedTime += state.task.endDateTime - state.task.startDateTime
         state.tasks.push(state.task);
+        delete state.task;
+      }
+    },
+    GeneralStopTask: (state) => {
+      if (state.task) {
         delete state.task;
       }
     },
@@ -35,10 +41,18 @@ export const taskSlice = createSlice({
         state.tasks[taskIndex] = action.payload
       }
     },
+    ResumeTask(state, action: PayloadAction<Task>) {
+      const taskIndex = state.tasks.findIndex((task) => task.id === action.payload.id);
+      if (taskIndex >= 0) {
+        state.tasks[taskIndex].startDateTime = Date.now()
+        state.tasks[taskIndex].endDateTime = undefined
+        state.task = state.tasks[taskIndex]
+      }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { StartTask, StopTask, UpdateTask } = taskSlice.actions;
+export const { StartTask, StopTask, UpdateTask, GeneralStopTask, ResumeTask } = taskSlice.actions;
 
 export default taskSlice.reducer;

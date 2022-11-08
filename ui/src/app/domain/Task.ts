@@ -4,6 +4,7 @@ export default interface Task {
     description: string,
     startDateTime: number,
     endDateTime?: number,
+    accumulatedTime: number,
     createDate?: string,
     modificationDate?: string,
 }
