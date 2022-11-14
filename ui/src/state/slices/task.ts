@@ -49,10 +49,13 @@ export const taskSlice = createSlice({
         state.task = state.tasks[taskIndex]
       }
     },
+    ClearTask: (state) => {
+      state.tasks = []
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { StartTask, StopTask, UpdateTask, GeneralStopTask, ResumeTask } = taskSlice.actions;
+export const { StartTask, StopTask, UpdateTask, GeneralStopTask, ResumeTask, ClearTask } = taskSlice.actions;
 
 export default taskSlice.reducer;

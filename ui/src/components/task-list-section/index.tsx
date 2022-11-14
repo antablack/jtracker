@@ -34,7 +34,7 @@ function TaskListSection() {
   return (
     <>
       <List
-        className="mt-5"
+        className="mt-3"
         size="default"
         bordered
         dataSource={state}
