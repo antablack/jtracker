@@ -59,7 +59,8 @@
         "height": 700,
         "resizable": false,
         "title": "jtracker",
-        "width": 450
+        "width": 450,
+        "alwaysOnTop": true
       }
     ]
   }
