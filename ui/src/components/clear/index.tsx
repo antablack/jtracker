@@ -3,18 +3,20 @@ import { ClearOutlined, SettingOutlined } from "@ant-design/icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
-import { ClearTask } from "../../state/slices/task";
+import { ClearTask, StopTask } from "../../state/slices/task";
 
 const { Paragraph, Title } = Typography;
 
 const ClearBtn: React.FC = () => {
-    const state = useSelector((state: RootState) => state.task.tasks);
-    const dispatch = useDispatch();
+    //const state = useSelector((state: RootState) => state.task.tasks);
+    //const dispatch = useDispatch();
   
     return (
         <>
           <Row className="mt-2 justify-end mr-4">
-            <Button onClick={() => dispatch(ClearTask())}>
+            <Button onClick={() => {
+              window.location.reload()
+            }}>
               Clear <ClearOutlined />
             </Button>
           </Row>
