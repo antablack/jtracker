@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Row className="justify-center">
-        <Col span={8} offset={1}>
+        <Col span={22} offset={0}>
           <AppHeader />
           <TaskListSection />
         </Col>

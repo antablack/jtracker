@@ -53,7 +53,7 @@ function TaskListSection() {
             >
               {item.description || "No label"}
             </Paragraph>
-            <Space>
+            <Space direction="horizontal">
               <Duration accumulated={item.accumulatedTime} isPaused={taskState?.id !== item.id} startDateTime={taskState?.startDateTime || 0} resetOnPause={false}/>
               <Button
                 type="primary"

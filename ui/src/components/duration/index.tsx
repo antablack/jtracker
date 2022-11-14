@@ -18,7 +18,8 @@ type DurationProps = {
      isPaused: boolean, 
      accumulated: number, 
      startDateTime: number,
-     resetOnPause:  boolean 
+     resetOnPause:  boolean,
+     className?: string
 }
 
 const Duration: React.FC<DurationProps> = (props: DurationProps) => {
@@ -39,7 +40,7 @@ const Duration: React.FC<DurationProps> = (props: DurationProps) => {
   }, [props]);
 
   return (
-    <Paragraph className="mb-0 mr-2" style={{ textAlign: "right" }}>
+    <Paragraph className={`mb-0 ${props.className}`} style={{ textAlign: "right" }}>
       {duration}
     </Paragraph>
   );

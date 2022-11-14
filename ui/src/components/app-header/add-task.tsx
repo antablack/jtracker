@@ -52,10 +52,10 @@ const AddTask: React.FC = () => {
         </Col>
         <Col
           span={5}
-          className="flex-column justify-center ml-3"
+          className="flex-column justify-center"
           style={{ display: "flex" }}
         >
-        <Duration accumulated={0} isPaused={state?.id !== taskId} startDateTime={state?.startDateTime || 0} resetOnPause={true}/>
+        <Duration className="mr-2" accumulated={0} isPaused={state?.id !== taskId} startDateTime={state?.startDateTime || 0} resetOnPause={true}/>
         </Col>
         <Col span={1}>
           <Button
